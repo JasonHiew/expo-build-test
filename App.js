@@ -1,20 +1,92 @@
-import { StatusBar } from 'expo-status-bar';
-import { StyleSheet, Text, View } from 'react-native';
+import "react-native-gesture-handler";
+
+import React from "react";
+import { SafeAreaProvider } from "react-native-safe-area-context";
+import { StyleSheet, Text, View, StatusBar } from "react-native";
+
+import { createMaterialTopTabNavigator } from "@react-navigation/material-top-tabs";
+import { createStackNavigator } from "@react-navigation/stack";
+import { NavigationContainer } from "@react-navigation/native";
+import { createDrawerNavigator } from "@react-navigation/drawer";
+
+import HelloWorld1 from "./src/examples/1-hello-world/1.HelloWorld1";
+import HelloWorld2 from "./src/examples/1-hello-world/2.HelloWorld2";
+import TheLight from "./src/examples/2-the-light/TheLight";
+import MomoLogin from "./src/examples/3-login-page/1.MomoLogin";
+import FacebookLogin from "./src/examples/3-login-page/2.FacebookLogin";
+import RegisterForm from "./src/examples/4-register-form/RegisterForm";
+import InstagramFeed from "./src/examples/5-instagram-feed/InstagramFeed";
+import RockPaperScissors from "./src/examples/6-rock-paper-scissors/RockPaperScissors";
+import StopWatch from "./src/examples/7-stopwatch/StopWatch";
+import BMICalculator from "./src/examples/8-bmi-calculator/BMICalculator";
+import WorldwideNews from "./src/examples/9-news/WorldwideNews";
+
+const Tab = createMaterialTopTabNavigator();
+const Stack = createStackNavigator();
+const Drawer = createDrawerNavigator();
+
+const TestComp = () => {
+  return (
+    <View style={{ flex: 1, justifyContent: "center", alignItems: "center" }}>
+      <Text>Test</Text>
+    </View>
+  );
+};
+
+const DrawerComp = () => {
+  return (
+    <Drawer.Navigator>
+      <Drawer.Screen name="Hello 1" component={HelloWorld1} />
+      <Drawer.Screen name="Hello 2" component={HelloWorld2} />
+      <Drawer.Screen name="The Light" component={TheLight} />
+      <Drawer.Screen name="Momo Login" component={MomoLogin} />
+      <Drawer.Screen name="FB Login" component={FacebookLogin} />
+      <Drawer.Screen name="Register Form" component={RegisterForm} />
+      <Drawer.Screen name="Instagram Feed" component={InstagramFeed} />
+      <Drawer.Screen name="Rock Paper Scissors" component={RockPaperScissors} />
+      <Drawer.Screen name="Stopwatch" component={TabsComp} />
+      <Drawer.Screen name="BMI Calculator" component={BMICalculator} />
+      <Drawer.Screen name="Worldwide News" component={WorldwideNews} />
+    </Drawer.Navigator>
+  );
+};
+
+const TabsComp = () => {
+  return (
+    <Tab.Navigator
+    // initialRouteName="HelloWorld1"
+    // tabBar={() => null}
+    // screenOptions={{ headerShown: false }}
+    >
+      <Tab.Screen name="Stop Watch" component={StopWatch} />
+      <Tab.Screen name="TEST" component={TestComp} />
+    </Tab.Navigator>
+  );
+};
 
 export default function App() {
   return (
-    <View style={styles.container}>
-      <Text>Open up App.js to start working on your app!</Text>
-      <StatusBar style="auto" />
-    </View>
+    <SafeAreaProvider style={styles.AndroidSafeArea}>
+      <NavigationContainer>
+        <Stack.Navigator
+          initialRouteName="Home"
+          screenOptions={{ headerShown: false }}
+        >
+          <Stack.Screen name="Home" component={DrawerComp} />
+          {/* <Stack.Screen name="StopWatch" component={TabsComp} /> */}
+          {/* <Stack.Screen name="Drawer" component={DrawerComp}></Stack.Screen> */}
+        </Stack.Navigator>
+      </NavigationContainer>
+    </SafeAreaProvider>
   );
 }
 
 const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: '#fff',
-    alignItems: 'center',
-    justifyContent: 'center',
+  AndroidSafeArea: {
+    // flex: 1,
+    // backgroundColor: "#fff",
+    // alignItems: "center",
+    // justifyContent: "center",
+    marginTop: Platform.OS === "android" ? StatusBar.currentHeight : 0,
   },
 });
