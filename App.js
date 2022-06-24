@@ -74,7 +74,6 @@ export default function App() {
         >
           <Stack.Screen name="Home" component={DrawerComp} />
           {/* <Stack.Screen name="StopWatch" component={TabsComp} /> */}
-          {/* <Stack.Screen name="Drawer" component={DrawerComp}></Stack.Screen> */}
         </Stack.Navigator>
       </NavigationContainer>
     </SafeAreaProvider>
