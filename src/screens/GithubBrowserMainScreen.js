@@ -20,7 +20,7 @@ import {
 } from "react-native";
 import { StatusBar } from "expo-status-bar";
 import { getData } from "../services/services";
-import OrgList from "../components/OrgList";
+import OrgList from "../components/orglist/OrgList";
 import RepoList from "../components/repolist/RepoList";
 
 export const GithubBrowserMainScreen = () => {
