@@ -20,6 +20,7 @@ import RockPaperScissors from "./src/examples/6-rock-paper-scissors/RockPaperSci
 import StopWatch from "./src/examples/7-stopwatch/StopWatch";
 import BMICalculator from "./src/examples/8-bmi-calculator/BMICalculator";
 import WorldwideNews from "./src/examples/9-news/WorldwideNews";
+import CarouselCards from "./src/examples/10-carousel/CarouselCards";
 
 const Tab = createMaterialTopTabNavigator();
 const Stack = createStackNavigator();
@@ -47,6 +48,7 @@ const DrawerComp = () => {
       <Drawer.Screen name="Stopwatch" component={TabsComp} />
       <Drawer.Screen name="BMI Calculator" component={BMICalculator} />
       <Drawer.Screen name="Worldwide News" component={WorldwideNews} />
+      <Drawer.Screen name="Carousel Snap Grid" component={CarouselCards} />
     </Drawer.Navigator>
   );
 };
