@@ -2,10 +2,13 @@ import "react-native-gesture-handler";
 
 import React from "react";
 import { SafeAreaProvider } from "react-native-safe-area-context";
-import { StyleSheet, Text, View, StatusBar } from "react-native";
+import { StyleSheet, Text, View, StatusBar, Button } from "react-native";
+
+import { Provider } from "react-redux";
+import store from "./src/redux/store";
 
 import { createMaterialTopTabNavigator } from "@react-navigation/material-top-tabs";
-import { createStackNavigator } from "@react-navigation/stack";
+import { createNativeStackNavigator } from "@react-navigation/native-stack";
 import { NavigationContainer } from "@react-navigation/native";
 import { createDrawerNavigator } from "@react-navigation/drawer";
 
@@ -21,9 +24,11 @@ import StopWatch from "./src/examples/7-stopwatch/StopWatch";
 import BMICalculator from "./src/examples/8-bmi-calculator/BMICalculator";
 import WorldwideNews from "./src/examples/9-news/WorldwideNews";
 import CarouselCards from "./src/examples/10-carousel/CarouselCards";
+import { GithubBrowserMainScreen } from "./src/screens/GithubBrowserMainScreen";
+import { RepoDetailsScreen } from "./src/screens/RepoDetailsScreen";
 
 const Tab = createMaterialTopTabNavigator();
-const Stack = createStackNavigator();
+const Stack = createNativeStackNavigator();
 const Drawer = createDrawerNavigator();
 
 const TestComp = () => {
@@ -37,6 +42,11 @@ const TestComp = () => {
 const DrawerComp = () => {
   return (
     <Drawer.Navigator>
+      <Drawer.Screen
+        name="Github Browser"
+        component={GithubBrowserMainScreen}
+      />
+      <Drawer.Screen name="Carousel Snap Grid" component={CarouselCards} />
       <Drawer.Screen name="Hello 1" component={HelloWorld1} />
       <Drawer.Screen name="Hello 2" component={HelloWorld2} />
       <Drawer.Screen name="The Light" component={TheLight} />
@@ -48,7 +58,6 @@ const DrawerComp = () => {
       <Drawer.Screen name="Stopwatch" component={TabsComp} />
       <Drawer.Screen name="BMI Calculator" component={BMICalculator} />
       <Drawer.Screen name="Worldwide News" component={WorldwideNews} />
-      <Drawer.Screen name="Carousel Snap Grid" component={CarouselCards} />
     </Drawer.Navigator>
   );
 };
@@ -68,17 +77,25 @@ const TabsComp = () => {
 
 export default function App() {
   return (
-    <SafeAreaProvider style={styles.AndroidSafeArea}>
-      <NavigationContainer>
-        <Stack.Navigator
-          initialRouteName="Home"
-          screenOptions={{ headerShown: false }}
-        >
-          <Stack.Screen name="Home" component={DrawerComp} />
-          {/* <Stack.Screen name="StopWatch" component={TabsComp} /> */}
-        </Stack.Navigator>
-      </NavigationContainer>
-    </SafeAreaProvider>
+    <Provider store={store}>
+      <SafeAreaProvider style={styles.AndroidSafeArea}>
+        <NavigationContainer>
+          <Stack.Navigator
+            initialRouteName="Home"
+            screenOptions={{ headerShown: false }}
+            headerBackVisible={true}
+          >
+            <Stack.Screen name="Home" component={DrawerComp} />
+            <Stack.Screen
+              name="RepoDetails"
+              component={RepoDetailsScreen}
+              options={{ title: "", headerShown: true }}
+            />
+            {/* <Stack.Screen name="StopWatch" component={TabsComp} /> */}
+          </Stack.Navigator>
+        </NavigationContainer>
+      </SafeAreaProvider>
+    </Provider>
   );
 }
 
