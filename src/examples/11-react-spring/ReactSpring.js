@@ -3,6 +3,7 @@ import { Text, View, TouchableWithoutFeedback, StyleSheet } from "react-native";
 import { Spring, animated, easings } from "@react-spring/native";
 
 const AnimatedView = animated(View);
+const AnimatedText = animated(Text);
 
 export default function ReactSpring() {
   const [flag, setFlag] = useState(true);
@@ -34,9 +35,11 @@ export default function ReactSpring() {
         native
         from={{
           backgroundColor: "#46e891",
+          fontSize: 30,
         }}
         to={{
           backgroundColor: "#277ef4",
+          fontSize: 50,
         }}
         config={{
           duration: 2000,
@@ -45,9 +48,13 @@ export default function ReactSpring() {
         loop={{ reverse: true }}
       >
         {(props) => (
-          <AnimatedView style={{ ...styles.rotateBox, ...props }}>
-            <Text style={styles.text}>{flag ? "TRUE" : "FALSE"}</Text>
-          </AnimatedView>
+          <TouchableWithoutFeedback onPressIn={() => toggle()}>
+            <AnimatedView style={{ ...styles.container, ...props }}>
+              <AnimatedText style={{ ...styles.text, ...props }}>
+                {flag ? "TRUE" : "FALSE"}
+              </AnimatedText>
+            </AnimatedView>
+          </TouchableWithoutFeedback>
         )}
       </Spring>
     </>
@@ -71,10 +78,10 @@ const styles = StyleSheet.create({
     textShadowColor: "white",
   },
 
-  rotateBox: {
+  loopedContainer: {
     flex: 1,
     margin: 0,
-    backgroundColor: "#46e891",
+    backgroundColor: "red",
     alignItems: "center",
     justifyContent: "center",
     borderRadius: 10,
