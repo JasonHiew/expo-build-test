@@ -26,6 +26,7 @@ import WorldwideNews from "./src/examples/9-news/WorldwideNews";
 import CarouselCards from "./src/examples/10-carousel/CarouselCards";
 import { GithubBrowserMainScreen } from "./src/screens/GithubBrowserMainScreen";
 import { RepoDetailsScreen } from "./src/screens/RepoDetailsScreen";
+import ReactSpring from "./src/examples/11-react-spring/ReactSpring";
 
 const Tab = createMaterialTopTabNavigator();
 const Stack = createNativeStackNavigator();
@@ -42,6 +43,7 @@ const TestComp = () => {
 const DrawerComp = () => {
   return (
     <Drawer.Navigator>
+      <Drawer.Screen name="React Spring" component={ReactSpring} />
       <Drawer.Screen
         name="Github Browser"
         component={GithubBrowserMainScreen}
